@@ -5,6 +5,10 @@ import ij.ImagePlus;
 public class Process_manager {
 	private String file;
 	private ImagePlus[] imps;
+	private int big_sqlen = 2048;
+	private int small_sqlen = 32;
+	private int big_divide = 32;
+
 
 	Mscs_ ms = new Mscs_();
 
@@ -25,16 +29,25 @@ public class Process_manager {
 
 		//big design phase
 		BigDesign_ bd = new BigDesign_();
+		bd.setBigSqlen(this.big_sqlen);
 		bd.setSize(gm.getsize());
 		bd.design();
 
-		ms.arar2log(bd.getM());
+		//ms.arar2log(bd.getM());
 
+		//get crops form big data
 		BigImps_ bis = new BigImps_();
 		bis.setfile(this.file);
 		bis.setM(bd.getM());
 		bis.cropImps();
-		bis.showImps();
+		//bis.showImps();
+
+		//resize big imps
+		SmallImps_ sis = new SmallImps_();
+		sis.setBigImps(bis.getImps());
+		sis.setRrate(big_divide);
+		sis.runResize();
+		//sis.showSmallImps();
 
 	}
 

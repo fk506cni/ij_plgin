@@ -4,7 +4,7 @@ import ij.IJ;
 
 public class BigDesign_ {
 	private int[] size = {0,0};
-	private int big_sqlen = 1024;
+	private int big_sqlen;
 
 	int wid;
 	int hei;
@@ -27,6 +27,10 @@ public class BigDesign_ {
 		this.size = size;
 		this.wid = size[0];
 		this.hei = size[1];
+	}
+
+	public void setBigSqlen(int big_sqlen) {
+		this.big_sqlen = big_sqlen;
 	}
 
 	public void design() {
