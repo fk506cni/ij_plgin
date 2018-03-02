@@ -1,8 +1,7 @@
 package ij.plugin.cr;
 
+import fiji.threshold.Auto_Threshold;
 import ij.ImagePlus;
-import ij.plugin.filter.ParticleAnalyzer;
-import ij.plugin.;;
 
 public class PartAnal_ {
 	private ImagePlus imp = new ImagePlus();
@@ -12,6 +11,9 @@ public class PartAnal_ {
 		this.imp = imp;
 	}
 
+	public void autoThd() {
+		Auto_Threshold ath = new Auto_Threshold();
 
+	}
 
 }
