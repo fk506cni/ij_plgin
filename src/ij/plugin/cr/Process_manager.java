@@ -1,5 +1,6 @@
 package ij.plugin.cr;
 
+import ij.IJ;
 import ij.ImagePlus;
 
 public class Process_manager {
@@ -48,6 +49,15 @@ public class Process_manager {
 		sis.setRrate(big_divide);
 		sis.runResize();
 		//sis.showSmallImps();
+
+		//combine small imps
+		CombineImps_ cmp = new CombineImps_();
+		cmp.setImpsXY(sis.getSmallImps(), bd.getSegX(), bd.getSegY());
+		IJ.log("kokomade");
+		cmp.combineXY();
+
+		//particle analysis
+
 
 	}
 
