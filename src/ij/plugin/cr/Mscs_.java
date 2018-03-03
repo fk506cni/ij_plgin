@@ -1,5 +1,6 @@
 package ij.plugin.cr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ij.IJ;
@@ -17,6 +18,10 @@ public class Mscs_ implements PlugIn{
 		IJ.log(str);
 	}
 
+	public void int2ijlog(int n) {
+		IJ.log(String.valueOf(n));
+	}
+
 	public void db2ijlog(double[] dbs) {
 		String str = "";
 		for(double db: dbs) {
@@ -25,6 +30,14 @@ public class Mscs_ implements PlugIn{
 		str = str.substring(0, str.length() -3);
 		str = str+"\n";
 		IJ.log(str);
+	}
+
+	public void arar2log(ArrayList<ArrayList> arar) {
+		for(int i =0; i < arar.size() ; i++) {
+			ArrayList<Integer> ar_i;
+			ar_i = arar.get(i);
+			arlist2log(ar_i);
+		}
 	}
 
 	public void arar2log(List<List<int[]>> arar) {
@@ -38,10 +51,29 @@ public class Mscs_ implements PlugIn{
 		}
 	}
 
+
 	public void arar2log(int[][] arar) {
 		for(int i = 0; i<arar.length; i++) {
 			ints2ijlog(arar[i]);
 		}
+	}
+
+	public void arlist2log(ArrayList<Integer> arint) {
+		String log = "";
+		for(int i= 0; i < arint.size();i++) {
+			log = log+ String.valueOf(arint.get(i)) + " ";
+		}
+		IJ.log(log);
+	}
+
+	public void strs2log(String[] strs) {
+		String str = "";
+		for(int i =0; i< strs.length; i++) {
+			str = str + strs[i] +" ";
+		}
+		str = str.substring(0, str.length() -1);
+		str = str+"\n";
+		IJ.log(str);
 	}
 
 

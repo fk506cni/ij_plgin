@@ -57,6 +57,18 @@ public class Process_manager {
 		cmp.combineXY();
 
 		//particle analysis
+		PartAnal_ pt = new PartAnal_();
+		pt.setImp(cmp.getImp());
+		//pt.setThrMethod("Default");
+		pt.autoThd();
+		pt.partAnal();
+		pt.trunkRect();
+
+		//ms.arar2log(pt.getRectList());
+		CompressDesign_ cd = new CompressDesign_();
+		cd.setAreas(pt.getRectList());
+		cd.trunkArea();
+
 
 
 	}
