@@ -4,12 +4,19 @@ import ij.IJ;
 import ij.ImagePlus;
 
 public class Process_manager {
-	private String file;
 	private ImagePlus[] imps;
 	private int big_sqlen = 2048;
-	private int small_sqlen = 32;
+	//private int small_sqlen = 32;
 	private int big_divide = 32;
+	private int additional_margin = 	64;
+	private int min_size = 1024;
+	//private String file;
+	private String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-AAC9-01A-01-TSA.tif";
+	//private String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-A113-01A-01-TS1.svs";
 
+	private long allowed_pixels = (long)Math.pow(2d, 30d);
+	//private long allowed_pixels = (long)Math.pow(2d, 20d);
+	//private long allowed_pixels = (long)4000000;
 
 	Mscs_ ms = new Mscs_();
 
@@ -18,13 +25,12 @@ public class Process_manager {
 	}
 
 	public void process_file() {
-		String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-AAC9-01A-01-TSA.tif";
-		this.file = file;
+		String file = this.file;
 
 		//get meta data phase
 
 		GetMeta_ gm = new GetMeta_();
-		gm.setfile(this.file);
+		gm.setfile(file);
 		gm.readmeta();
 
 
@@ -68,6 +74,28 @@ public class Process_manager {
 		CompressDesign_ cd = new CompressDesign_();
 		cd.setAreas(pt.getRectList());
 		cd.trunkArea();
+
+
+		//crop_out design
+		CropDesign_ cpd = new CropDesign_();
+		cpd.setArea(cd.getTrunckedArea());
+		cpd.setAdditionalMargin(this.additional_margin);
+		cpd.setMinSize(this.min_size);
+		cpd.setOriginalSize(gm.getsize());
+		cpd.setSqLen(this.big_divide);
+		cpd.makeCropDesign();
+
+
+		//crop_out
+		TargetListCrop_ tlc = new TargetListCrop_();
+		tlc.setFile(this.file);
+		tlc.setAllowedPixel(this.allowed_pixels);
+		tlc.setMaxArea(cpd.getMaxAreaSize());
+		tlc.setAreaSizes(cpd.getAreaSizes());
+		tlc.setCropDesign(cpd.getCropDesing());
+		tlc.calcXdiv();
+		tlc.makeCropImps();
+
 
 
 

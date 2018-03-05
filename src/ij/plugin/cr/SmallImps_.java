@@ -32,8 +32,10 @@ public class SmallImps_ {
 			int wid = ip.getWidth();
 			int hei = ip.getHeight();
 
-			int new_wid = (wid + this.resize_rate -1) / this.resize_rate;
-			int new_hei = (hei + this.resize_rate -1) / this.resize_rate;
+			//int new_wid = (wid + this.resize_rate -1) / this.resize_rate;
+			//int new_hei = (hei + this.resize_rate -1) / this.resize_rate;
+			int new_wid = wid / this.resize_rate;
+			int new_hei = hei / this.resize_rate;
 			String i_tag = String.valueOf(i);
 
 			int[] ss = {new_wid, new_hei};
