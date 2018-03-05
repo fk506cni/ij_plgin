@@ -2,9 +2,10 @@ package ij.plugin.cr;
 
 import ij.IJ;
 import ij.ImagePlus;
+import ij.process.ImageConverter;
 import loci.common.Region;
 import loci.plugins.BF;
-import loci.plugins.in.ImporterOptions;
+import loci.plugins.in.ImporterOptions;;
 
 public class CropFile_ {
 	private String file;
@@ -41,6 +42,11 @@ public class CropFile_ {
 
 			//...etc.
 			this.imp = BF.openImagePlus(options)[0];
+			if(this.color_mode=="color") {
+				ImageConverter icn = new ImageConverter(this.imp);
+				icn.convertRGBStackToRGB();
+				//IJ.run(this.imp, "Stack to RGB", "");
+			}
 			return this.imp;
 		}catch(Exception e){
 			System.out.println( "何かの例外が発生したので処理を続行できませんでした" );

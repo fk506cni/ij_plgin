@@ -10,8 +10,10 @@ public class Process_manager {
 	private int big_divide = 32;
 	private int additional_margin = 	64;
 	private int min_size = 1024;
-	//private String file;
-	private String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-AAC9-01A-01-TSA.tif";
+	private String file;
+	//private String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-AAC9-01A-01-TSA.tif";
+	private String output_dir;
+	//private String output_dir = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unkores\\";
 	//private String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-A113-01A-01-TS1.svs";
 
 	private long allowed_pixels = (long)Math.pow(2d, 30d);
@@ -24,8 +26,13 @@ public class Process_manager {
 		this.file = file;
 	}
 
+	public void setOutputDir(String outputdir) {
+		this.output_dir = outputdir;
+	}
+
 	public void process_file() {
 		String file = this.file;
+		String output_dir = this.output_dir;
 
 		//get meta data phase
 
@@ -63,6 +70,7 @@ public class Process_manager {
 		cmp.combineXY();
 
 		//particle analysis
+		IJ.log("PartAnal_");
 		PartAnal_ pt = new PartAnal_();
 		pt.setImp(cmp.getImp());
 		//pt.setThrMethod("Default");
@@ -71,12 +79,14 @@ public class Process_manager {
 		pt.trunkRect();
 
 		//ms.arar2log(pt.getRectList());
+		IJ.log("CompressDesign");
 		CompressDesign_ cd = new CompressDesign_();
 		cd.setAreas(pt.getRectList());
 		cd.trunkArea();
 
 
 		//crop_out design
+		IJ.log("CropDesignx");
 		CropDesign_ cpd = new CropDesign_();
 		cpd.setArea(cd.getTrunckedArea());
 		cpd.setAdditionalMargin(this.additional_margin);
@@ -97,7 +107,14 @@ public class Process_manager {
 		tlc.makeCropImps();
 
 
+		//file_save
+		ImpsSave_ isv = new ImpsSave_();
+		isv.setImpsList(tlc.getImpsAr());
+		isv.setOriginalFile(this.file);
+		isv.setOutputDir(this.output_dir);
+		isv.loopSave();
 
+		IJ.log(this.file +" was processed.");
 
 	}
 

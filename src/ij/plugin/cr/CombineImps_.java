@@ -60,7 +60,7 @@ public class CombineImps_ {
 
 		this.imp = new ImagePlus();
 		imp.setStack(iss.get(0));
-		imp.show();
+		//imp.show();
 	}
 
 	public ImagePlus getImp() {
