@@ -7,6 +7,8 @@ auto cropping out image via bioformats.
 
 this enable you to cropping out image from large than 2G pixel.
 
+![motive](https://github.com/fk506cni/ij_plgin/blob/master/motiv.png)
+
 Installion
 ============
 
@@ -27,3 +29,14 @@ I recommend over 16G memory for a file over 2G pix.
 Be carefully about imageJ with this plugin making your workstation unstable.
 
 
+License
+============
+
+GPLv3
+
+
+Written by
+
+fk506cni == unkodaisuki!
+
+since 2018.1
