@@ -11,8 +11,5 @@ public class CropReader_ implements PlugIn{
 		//fm.setInOut();
 		fm.processFile();
 
-
-		//Process_manager pm = new Process_manager();
-		//pm.process_file();
 	}
 }

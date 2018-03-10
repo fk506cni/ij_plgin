@@ -20,7 +20,6 @@ public class ImpsSave_ {
 	}
 
 	public boolean isWin32Sys() {
-		//boolean result = String.valueOf(File.separatorChar) == "\\";
 		boolean result = "\\".equals(File.separator);
 		if(result) {
 			IJ.log("Detected System is Windows system.");
@@ -82,13 +81,8 @@ public class ImpsSave_ {
 	}
 
 	public void run(String args) {
-		String file = IJ.getFilePath("choice of unko");
-		//String file ="/home/dryad/Dropbox/Rsta/151imageJassist/majorsvs_symln/TCGA-ZS-A9CG-01A-01-TS1.57E5A555-C6B1-468D-AB86-94B8BF8C8326.svs.bz2";
+		String file = IJ.getFilePath("this is file save class");
 		IJ.log(file);
-		//String dir = IJ.getDirectory("unko of unko");
-		//IJ.log(dir);
-		//String file =  "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-AAC9-01A-01-TSA.tif";
-		//String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-A113-01A-01-TS1.svs";
 		setOriginalFile(file);
 	}
 
