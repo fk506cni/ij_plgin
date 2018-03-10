@@ -93,6 +93,9 @@ public class Process_manager {
 		cmp.setImpsXY(bis.getImps(), bd.getSegX(), bd.getSegY());
 		//IJ.log("kokomade");
 		cmp.combineXY();
+		
+		//save thubmnail
+		
 
 		//particle analysis
 		IJ.log("PartAnal_");
