@@ -14,10 +14,7 @@ public class Process_manager {
 	//minimum size is pixel. not length
 	private int min_size = 1000000;
 	private String file;
-	//private String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-AAC9-01A-01-TSA.tif";
 	private String output_dir;
-	//private String output_dir = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unkores\\";
-	//private String file = "D:\\Cloud\\Dropbox\\TCGA-BC-A10Q\\unko\\TCGA-DD-A113-01A-01-TS1.svs";
 
 	//private long allowed_pixels = (long)Math.pow(2d, 31d) -2;
 	private long allowed_pixels = (long)Math.pow(2d, 31d);
@@ -93,9 +90,10 @@ public class Process_manager {
 		cmp.setImpsXY(bis.getImps(), bd.getSegX(), bd.getSegY());
 		//IJ.log("kokomade");
 		cmp.combineXY();
-		
+		isv.keyWdSave(cmp.getImp(), "_gray_thumbnail");
+
 		//save thubmnail
-		
+
 
 		//particle analysis
 		IJ.log("PartAnal_");
@@ -106,7 +104,7 @@ public class Process_manager {
 		pt.partAnal();
 		pt.trunkRect();
 		isv.keyWdSave(pt.getMaskImp(), agt.getAMethod()+"_thrMsk");
-		isv.resultSave("Rect_result");
+		isv.resultSave("Rect_result.csv");
 
 		//ms.arar2log(pt.getRectList());
 		IJ.log("CompressDesign");

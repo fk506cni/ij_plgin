@@ -1,5 +1,7 @@
 package ij.plugin.cr;
 
+import java.io.File;
+
 import fiji.util.gui.GenericDialogPlus;
 import ij.IJ;
 //import ij.gui.GenericDialog;
@@ -54,20 +56,38 @@ public class Args_getter implements PlugIn {
       IJ.log(String.valueOf(this.thr_method)+": auto thresholding method");
 
       this.file = gdp.getNextString();
+
       IJ.log(this.file +": target file");
 
       this.output_dir = gdp.getNextString();
+      if(!this.output_dir.endsWith("\\") &&  "\\".equals(File.separator)) {
+    	  this.output_dir = this.output_dir+"\\";
+      }
       IJ.log(this.output_dir+": output directory");
 
-      if(this.allowed_pixels <= (long)this.min_size) {
-    	  IJ.log("allowed size shoould be min size");
+      if(!isCorrectArgs()) {
+    	  IJ.log("not correct args");
     	  return;
       }
+    }
 
-      if(this.file== "" || this.output_dir=="") {
-    	  IJ.log("require in file and out dir");
-    	  return;
-      }
+    public boolean isCorrectArgs() {
+        if(this.allowed_pixels <= (long)this.min_size) {
+      	  IJ.log("allowed size shoould be min size");
+      	  return false;
+        }
+
+        if(this.file== "" || this.output_dir=="") {
+      	  IJ.log("require in file and out dir");
+      	  return false;
+        }
+
+        if(this.big_sqlen * this.big_divide * this.min_size * (int)this.allowed_pixels == 0) {
+        	IJ.log("1st CR, tbm size rate, mim size, allowed size should be not zero.");
+        	return false;
+        }
+
+        return true;
     }
 
     public void ArgsViaGui() {

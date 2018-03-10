@@ -7,6 +7,10 @@ auto cropping out image via bioformats.
 
 this enable you to cropping out image from large than 2G pixel.
 
+for example, TCGA or Genomic data commons degital slides, usually over 2G px svs formats.
+
+you can crop out tissue image from them by this plugin.
+
 ![motive](https://github.com/fk506cni/ij_plgin/blob/master/motiv.png)
 
 Installion
