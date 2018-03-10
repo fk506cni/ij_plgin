@@ -1,5 +1,6 @@
 package ij.plugin.cr;
 
+import ij.IJ;
 import ij.ImagePlus;
 import ij.process.ImageProcessor;
 
@@ -55,6 +56,37 @@ public class SmallImps_ {
 			this.s_imps[i].setProcessor(ip);
 			//this.s_imps[i].show();
 		}
+	}
+
+	public ImagePlus Imp2resizeImp(ImagePlus imp) {
+
+		ImageProcessor ip = imp.getProcessor();
+
+		//if imp is null in this phase...?
+		imp = null;
+
+		int wid = ip.getWidth();
+		int hei = ip.getHeight();
+		int new_wid = wid / this.resize_rate;
+		if(new_wid ==0) {
+			IJ.log(String.valueOf(new_wid)+"::new_wid 0 ->1");
+			new_wid =1;
+		}
+		int new_hei = hei / this.resize_rate;
+		if(new_hei ==0) {
+			IJ.log(String.valueOf(new_hei)+ "::new_hei 0 ->1");
+			new_hei=1;
+		}
+
+
+		ip.setInterpolationMethod(this.interploation_mode);
+		ip = ip.resize(new_wid, new_hei, useAvg);
+		ImagePlus resultImp = new ImagePlus();
+		resultImp.setProcessor(ip);
+
+		//reducing memory consumption
+		ip = null;
+		return resultImp;
 	}
 
 

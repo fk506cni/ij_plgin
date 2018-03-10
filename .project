@@ -24,4 +24,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>java_src</name>
+			<type>2</type>
+			<location>C:/Program Files/Java/jdk1.8.0_161/java_src</location>
+		</link>
+	</linkedResources>
 </projectDescription>

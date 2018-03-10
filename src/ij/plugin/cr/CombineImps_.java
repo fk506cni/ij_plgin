@@ -35,6 +35,9 @@ public class CombineImps_ {
 	}
 
 	public void combineXY() {
+		IJ.log("conbinination X"+this.seg_x+" and Y"+this.seg_y);
+
+
 		this.imp = new ImagePlus();
 		List<ImageStack> iss = this.iss;
 

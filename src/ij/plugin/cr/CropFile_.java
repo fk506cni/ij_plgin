@@ -12,6 +12,7 @@ public class CropFile_ {
 	private int[] args = {0,0,1,1};
 	private ImagePlus imp;
 	private String color_mode="gray8bit";
+	private Mscs_ ms = new Mscs_();
 
 	public void setfile(String file) {
 		this.file = file;
@@ -27,7 +28,7 @@ public class CropFile_ {
 
 	public ImagePlus args2imp() {
 		try {
-			IJ.log("crop_proc...");
+			IJ.log("crop_out from "+ms.ints2String(this.args) +" _color mode:" +this.color_mode+"\n");
 			ImporterOptions options = new ImporterOptions();
 			options.setId(this.file);
 			options.setAutoscale(true);

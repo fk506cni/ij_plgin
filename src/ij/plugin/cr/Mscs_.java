@@ -76,10 +76,21 @@ public class Mscs_ implements PlugIn{
 		IJ.log(str);
 	}
 
+	public String ints2String(int[] ints) {
+		String str = "";
+		String sep = ", ";
+		for(int i =0; i<ints.length;i++) {
+			str = str+String.valueOf(ints[i])+sep;
+		}
+		str = str.substring(0, (str.length() -2));
+		return str;
+	}
+
 
 	public void run (String arg) {
 		IJ.log("unko_intshow");
 		int[] ints = {2,3,4, 4,2,6};
 		ints2ijlog(ints);
+		IJ.log(ints2String(ints));
 	}
 }

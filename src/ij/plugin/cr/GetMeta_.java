@@ -9,8 +9,9 @@ import loci.formats.meta.IMetadata;
 import loci.formats.services.OMEXMLService;
 
 public class GetMeta_  implements PlugIn {
-	String file = null;
-	int[] size = new int[2];
+	private String file = null;
+	private int[] size = new int[2];
+	private Mscs_ ms = new Mscs_();
 
 	public static void printPixelDimensions (IFormatReader reader) {
 		// output dimensional information
@@ -53,6 +54,9 @@ public class GetMeta_  implements PlugIn {
 				//printPhysicalDimensions(meta, series);
 				this.size[0] = sizeX;
 				this.size[1] = sizeY;
+
+				ms.ints2ijlog(this.size);
+				IJ.log("is original image size.");
 
 				reader.close();
 			}

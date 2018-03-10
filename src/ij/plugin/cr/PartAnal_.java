@@ -13,7 +13,7 @@ public class PartAnal_ {
 	private String thr_method = "Default";
 	private ResultsTable rt = new ResultsTable();
 	//private ParticleAnalyzer pa = new ParticleAnalyzer();
-	Mscs_ ms = new Mscs_();
+	private Mscs_ ms = new Mscs_();
 	private ResultParser_ rp = new ResultParser_();
 
 	ArrayList<ArrayList> rectlist = new ArrayList<ArrayList>();
@@ -32,7 +32,7 @@ public class PartAnal_ {
 		IJ.setAutoThreshold(imp, this.thr_method);
 		ij.Prefs.blackBackground = true;
 		IJ.run(imp, "Convert to Mask", "only");
-		imp.show();
+		imp.show("result of resizing and masking");
 		this.imp = imp;
 	}
 
@@ -41,7 +41,7 @@ public class PartAnal_ {
 		ResultsTable rt = this.rt;
 		ParticleAnalyzer pa = new ParticleAnalyzer(ParticleAnalyzer.SHOW_NONE, ParticleAnalyzer.RECT, rt, 0.0, Double.POSITIVE_INFINITY);
 		pa.analyze(imp);
-		rt.show("result of unko");
+		rt.show("result of rect and particle");
 
 		this.rp.setTable(rt);
 	}
@@ -71,5 +71,9 @@ public class PartAnal_ {
 
 	public ArrayList<ArrayList> getRectList() {
 		return this.rectlist;
+	}
+
+	public ImagePlus getMaskImp() {
+		return this.imp;
 	}
 }

@@ -17,6 +17,8 @@ public class TargetListCrop_{
 	//so it is decided by allowed pixel and max area size.
 	int Xdiv = 1;
 
+	private String output_dir;
+
 	public void setCropDesign(ArrayList<ArrayList> crop_area) {
 		this.crop_area = crop_area;
 	}
@@ -35,6 +37,10 @@ public class TargetListCrop_{
 
 	public void setFile(String file) {
 		this.file = file;
+	}
+
+	public void setOutput_dir(String output_dir) {
+		this.output_dir = output_dir;
 	}
 
 	public double log2(double x) {
@@ -57,21 +63,31 @@ public class TargetListCrop_{
 	}
 
 	public void makeCropImps() {
-		TargetICrop_ cip = new TargetICrop_();
-		cip.setFile(this.file);
-		cip.setXdiv(this.Xdiv);
-		ArrayList<ImagePlus> impS_list = new ArrayList<ImagePlus>();
-
 		for(int i= 0; i<crop_area.size();i++) {
+			TargetICrop_ cip = new TargetICrop_();
+			cip.setFile(this.file);
+			cip.setXdiv(this.Xdiv);
 			cip.setCropAreaI(crop_area.get(i));
 			cip.makeImps2Imp();
-			impS_list.add(cip.getResultImp());
+
+			ImpsSave_ isv = new ImpsSave_();
+			isv.setOriginalFile(this.file);
+			isv.setOutputDir(output_dir);
+			isv.iterSave(cip.getResultImp(), i);
+
+			System.gc();
+
+			//impS_list.add(cip.getResultImp());
 		}
-		this.impS_list = impS_list;
+		//this.impS_list = impS_list;
 	}
 
 	public  ArrayList<ImagePlus> getImpsAr(){
 		return this.impS_list;
+	}
+
+	public int getXdiv() {
+		return this.Xdiv;
 	}
 
 	public void run(String args) {

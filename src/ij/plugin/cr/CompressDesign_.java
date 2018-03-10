@@ -69,6 +69,7 @@ public class CompressDesign_ {
 							area.remove(area_i);
 							area.remove(area_j);
 							trunk_size = area.size();
+							IJ.log("bellow area i and j was combined.");
 							IJ.log(String.valueOf(i)+" is i of area index");
 							IJ.log(String.valueOf(j)+" is j of area index");
 							break inloop;
@@ -76,7 +77,10 @@ public class CompressDesign_ {
 					}
 				}
 			}
-			break outloop;
+			if(trunk_size ==0) {
+				IJ.log("no comibination was done.");
+				break outloop;
+			}
 		}
 
 		ms.arar2log(area);

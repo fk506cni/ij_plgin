@@ -2,6 +2,7 @@ package ij.plugin.cr;
 
 import java.util.ArrayList;
 
+import ij.IJ;
 import ij.ImagePlus;
 
 public class TargetICrop_ {
@@ -44,29 +45,30 @@ public class TargetICrop_ {
 			area_j[1] = area.get(2);
 			area_j[2] = Wdiv;
 			area_j[3] = area.get(4);
+			IJ.log("imp will crop from");
 			this.ms.ints2ijlog(area_j);
 			div_areas.add(area_j);
 		}
 
+		SmallImps_ sis = new SmallImps_();
+		//sis.setBigImps(imps);
+		sis.setRrate(Xdiv);
+		//sis.runResize();
 
 		CropFile_ cf = this.cf;
 		cf.setfile(this.file);
 		cf.setColMode("color");
 		for(int j=0; j<Xdiv; j++) {
 			cf.setargs(div_areas.get(j));
-			imps[j] = cf.args2imp();
+			imps[j] = sis.Imp2resizeImp(cf.args2imp());
 			//imps[j].show();
 		}
 
-		SmallImps_ sis = new SmallImps_();
-		sis.setBigImps(imps);
-		sis.setRrate(Xdiv);
-		sis.runResize();
 
 		CombineImps_ cmp = new CombineImps_();
-		cmp.setImpsXY(sis.getSmallImps(), Xdiv, 1);
+		cmp.setImpsXY(imps, Xdiv, 1);
 		cmp.combineXY();
-		cmp.getImp().show();
+		//cmp.getImp().show();
 
 		this.resultImp = cmp.getImp();
 		//

@@ -4,10 +4,11 @@ import ij.plugin.cr.FileManager_;
 
 public class CropReader_ implements PlugIn{
 	public void run (String arg) {
-		IJ.log("starting CR plugin");
+		String plg_ver = "1.1";
+		IJ.log("starting CR plugin ver" +plg_ver);
 
 		FileManager_ fm = new FileManager_();
-		fm.setInOut();
+		//fm.setInOut();
 		fm.processFile();
 
 

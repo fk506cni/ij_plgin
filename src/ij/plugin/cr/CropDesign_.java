@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ij.IJ;
 
 public class CropDesign_ {
+	//ここのWとHの処理も後でlongに変えておく
 	private ArrayList<ArrayList> trunked_areas;
 	private ArrayList<ArrayList> crop_areas;
 	private int additional_margin = 32;

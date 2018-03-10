@@ -14,8 +14,9 @@ public class FileManager_ {
 
 	public void processFile(){
 		Process_manager pm = new Process_manager();
-		pm.setFile(this.inputfile);
-		pm.setOutputDir(outputdir);
+		//pm.setFile(this.inputfile);
+		//pm.setOutputDir(outputdir);
+		pm.setArgsViaGUI();
 		pm.process_file();
 	}
 
