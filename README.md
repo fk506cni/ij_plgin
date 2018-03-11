@@ -13,6 +13,8 @@ you can crop out tissue image from them by this plugin.
 
 ![motive](https://github.com/fk506cni/ij_plgin/blob/master/motiv.png)
 
+![resol](https://github.com/fk506cni/ij_plgin/blob/master/resol.png)
+
 Installion
 ============
 
@@ -33,10 +35,25 @@ I recommend over 16G memory for a file over 2G pix.
 Be carefully about imageJ with this plugin making your workstation unstable.
 
 
+Process mode
+============
+
+if an input file was chosen, this processes the single file.
+
+else, an input dir was chosen, this processes all of file in the input dir.
+
+if file and dir was given, this process process the file, not directory.
+
+if you want to process all files in an directory, leave "input file" empty.
+
+
 License
 ============
 
-GPLv3
+Plugin: GPLv3
+
+Catoons above: from irasutoya, "http://www.irasutoya.com/"
+Digital slide above: from Genomic data commons, legacy archive.
 
 
 Written by

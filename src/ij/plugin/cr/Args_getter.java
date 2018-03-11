@@ -6,6 +6,7 @@ import fiji.util.gui.GenericDialogPlus;
 import ij.IJ;
 //import ij.gui.GenericDialog;
 import ij.plugin.PlugIn;
+import ij.plugin.cr.Mscs_;
 
 public class Args_getter implements PlugIn {
 	//parameter requirement
@@ -17,8 +18,21 @@ public class Args_getter implements PlugIn {
 	private String thr_method ="Default";
     public String title="CR entry";
     public int width=512,height=512;
-    public String file;
-    public String output_dir;
+    public String file ="";
+    public File file__Asfile;
+
+    public String input_dir ="";
+    public File input_dir_Asfile;
+
+
+    public String[] input_files;
+    public File[] input_files__Asfile;
+
+    public String output_dir ="";
+    public File output_dir_Asfile;
+
+    public String process_mode = "file";
+    private Mscs_ ms = new Mscs_();
 
     public void run(String arg) {
       GenericDialogPlus gdp = new GenericDialogPlus("CR entry");
@@ -33,7 +47,8 @@ public class Args_getter implements PlugIn {
     		  "Shanbhag","Triangle","Yen"};
       gdp.addChoice("Athr_meth",choice , choice[0]);
       gdp.addFileField("input file", "");
-      gdp.addDirectoryField("output_dir", "");
+      gdp.addDirectoryField("input dir", "");
+      gdp.addDirectoryField("output dir", "");
       gdp.showDialog();
       if (gdp.wasCanceled()) return;
 
@@ -56,10 +71,19 @@ public class Args_getter implements PlugIn {
       IJ.log(String.valueOf(this.thr_method)+": auto thresholding method");
 
       this.file = gdp.getNextString();
-
+      this.file__Asfile = new File(this.file);
       IJ.log(this.file +": target file");
+      IJ.log(String.valueOf(this.file.equals("")));
+
+      this.input_dir = gdp.getNextString();
+      this.input_dir_Asfile = new File(this.input_dir);
+      if(!this.input_dir.endsWith("\\") &&  "\\".equals(File.separator)) {
+    	  this.input_dir = this.input_dir+"\\";
+      }
+      IJ.log(this.input_dir+": input directory");
 
       this.output_dir = gdp.getNextString();
+      this.output_dir_Asfile = new File(this.output_dir);
       if(!this.output_dir.endsWith("\\") &&  "\\".equals(File.separator)) {
     	  this.output_dir = this.output_dir+"\\";
       }
@@ -69,6 +93,9 @@ public class Args_getter implements PlugIn {
     	  IJ.log("not correct args");
     	  return;
       }
+
+      setMode();
+
     }
 
     public boolean isCorrectArgs() {
@@ -82,16 +109,64 @@ public class Args_getter implements PlugIn {
       	  return false;
         }
 
-        if(this.big_sqlen * this.big_divide * this.min_size * (int)this.allowed_pixels == 0) {
-        	IJ.log("1st CR, tbm size rate, mim size, allowed size should be not zero.");
+        if(this.big_sqlen==0 || this.big_divide ==0 || this.allowed_pixels==0) {
+        	IJ.log(String.valueOf(this.big_sqlen!=0)+"::big sq length");
+        	IJ.log(String.valueOf(this.big_divide!=0)+"::thmb rate length");
+        	IJ.log(String.valueOf(this.allowed_pixels!=0)+"::allowed size");
+        	IJ.log(String.valueOf(this.big_sqlen==0 || this.big_divide ==0 || this.allowed_pixels==0));
+        	IJ.log("1st CR, tbm size rate, allowed size should be not zero.");
         	return false;
         }
 
         return true;
     }
 
+    public String retrieve2bool(boolean cond1, boolean cond2) {
+    	String log = "condition1 :"+String.valueOf(cond1)+", and condition2:"+String.valueOf(cond2);
+    	return log;
+    }
+
+    public void setMode() {
+    	IJ.log(retrieve2bool((!this.file.equals("")), (!this.input_dir.equals("\\"))));
+
+    	if((!this.file.equals("")) && (!this.input_dir.equals("\\"))) {
+    		this.process_mode = "file";
+    		IJ.log(this.file+"is file string");
+    		IJ.log("running "+this.process_mode+" mode by"+retrieve2bool((!this.file.equals("")), (!this.input_dir.equals("\\"))));
+
+    	}else if((this.file.equals("")) &&  (!this.input_dir.equals("\\"))) {
+    		this.process_mode = "dir";
+    		IJ.log("running "+this.process_mode+" mode by"+retrieve2bool((!this.file.equals("")), (!this.input_dir.equals("\\"))));
+
+    	}else if((!this.file.equals("")) &&  (this.input_dir.equals("\\"))) {
+    		this.process_mode = "file";
+    		IJ.log("running "+this.process_mode+" mode by"+retrieve2bool((!this.file.equals("")), (!this.input_dir.equals("\\"))));
+
+    	}else if((this.file.equals("")) &&  (this.input_dir.equals("\\"))) {
+    		IJ.log("running "+this.process_mode+" mode by"+retrieve2bool((!this.file.equals("")), (!this.input_dir.equals("\\"))));
+    		IJ.log("inputs were empty.");
+    	}
+
+    	//set input files
+    	if(this.process_mode == "dir") {
+    		File dir = new File(this.input_dir);
+    		File[] input_list = dir.listFiles();
+
+    		if(input_list == null) {
+    			IJ.log("input dir is empty.");
+    		}else {
+    			for(int i = 0; i < input_list.length;i++) {
+    				IJ.log(input_list[i].getAbsolutePath());
+    				this.input_files[i] = input_list[i].getAbsolutePath();
+    			}
+    		}
+
+    	}
+    }
+
     public void ArgsViaGui() {
     	run("");
+
     }
 
     public void setIntArgs(int big_sqlen, int big_divide, int additional_margin, int min_size, long allowed_pixels) {
@@ -146,5 +221,9 @@ public class Args_getter implements PlugIn {
     public String[] getMethInOut() {
     	String[] str_res = {this.thr_method, this.file, this.output_dir};
     	return str_res;
+    }
+
+    public String getMode() {
+    	return this.process_mode;
     }
 }
