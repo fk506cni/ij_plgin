@@ -3,13 +3,15 @@ CropReader
 
 imageJ plugin
 
-auto cropping out image via bioformats.
+Auto cropping out image via bioformats.
 
-this enable you to cropping out image from large than 2G pixel.
+This enable you to cropping out image from large than 2G pixel.
 
-for example, TCGA or Genomic data commons degital slides, usually over 2G px svs formats.
+For example, TCGA or Genomic data commons degital slides, usually over 2G px svs formats.
 
-you can crop out tissue image from them by this plugin.
+ImageJ fail to import such a large image data with "java.lang.IllegalArgumentException: Array size too large".
+
+You can crop out tissue image from them by this plugin.
 
 ![motive](https://github.com/fk506cni/ij_plgin/blob/master/motiv.png)
 
@@ -38,13 +40,17 @@ Be carefully about imageJ with this plugin making your workstation unstable.
 Process mode
 ============
 
-if an input file was chosen, this processes the single file.
+If an input file was chosen, this processes the single file.
 
-else, an input dir was chosen, this processes all of file in the input dir.
+Else, an input dir was chosen, this processes all of file in the input dir.
 
-if file and dir was given, this process process the file, not directory.
+If both file and dir was given, this process process the file, not the directory.
 
-if you want to process all files in an directory, leave "input file" empty.
+If you want to process all files in an directory, leave "input file" empty.
+
+Dir mode try process all files in the directory. If not appropriate files are in the directory, Error will happen.
+
+Be carefully about the contents of the directory.
 
 
 License
@@ -52,8 +58,10 @@ License
 
 Plugin: GPLv3
 
-Catoons above: from irasutoya, "http://www.irasutoya.com/"
+Cartoons above: from irasutoya, "http://www.irasutoya.com/". Copyright is belong to Irasutoya.
+
 Digital slide above: from Genomic data commons, legacy archive.
+
 
 
 Written by

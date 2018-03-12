@@ -40,6 +40,10 @@ public class Process_manager {
 		this.agt.ArgsViaGui();
 	}
 
+	public void setArgsGetter(Args_getter agt) {
+		this.agt = agt;
+	}
+
 	public void process_file() {
 		Args_getter agt = this.agt;
 
@@ -90,7 +94,7 @@ public class Process_manager {
 		cmp.setImpsXY(bis.getImps(), bd.getSegX(), bd.getSegY());
 		//IJ.log("kokomade");
 		cmp.combineXY();
-		isv.keyWdSave(cmp.getImp(), "_gray_thumbnail");
+		isv.keyWdSave(cmp.getImp(), "gray_thumbnail");
 
 		//save thubmnail
 
@@ -104,7 +108,9 @@ public class Process_manager {
 		pt.partAnal();
 		pt.trunkRect();
 		isv.keyWdSave(pt.getMaskImp(), agt.getAMethod()+"_thrMsk");
-		isv.resultSave("Rect_result.csv");
+
+		String result_tag ="Rect_result";
+		isv.resultSave(result_tag);
 
 		//ms.arar2log(pt.getRectList());
 		IJ.log("CompressDesign");
@@ -127,7 +133,7 @@ public class Process_manager {
 		//crop_out
 		TargetListCrop_ tlc = new TargetListCrop_();
 		tlc.setFile(agt.getFilePath());
-		tlc.setOutput_dir(agt.getFilePath());
+		tlc.setOutput_dir(agt.getOutDir());
 		tlc.setAllowedPixel(agt.getAllowedPx());
 		tlc.setMaxArea(cpd.getMaxAreaSize());
 		tlc.setAreaSizes(cpd.getAreaSizes());
@@ -143,7 +149,13 @@ public class Process_manager {
 		isv.setOutputDir(this.output_dir);
 		isv.loopSave();
 */
+
 		IJ.log(agt.getFilePath() +" was processed.");
+		IJ.run("Clear Results","");
+		IJ.run("Close All","");
+		IJ.selectWindow(isv.getFileTag()+"_"+result_tag+".csv");
+        IJ.run("Close");
+
 
 	}
 

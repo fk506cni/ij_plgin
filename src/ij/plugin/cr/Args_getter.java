@@ -6,7 +6,6 @@ import fiji.util.gui.GenericDialogPlus;
 import ij.IJ;
 //import ij.gui.GenericDialog;
 import ij.plugin.PlugIn;
-import ij.plugin.cr.Mscs_;
 
 public class Args_getter implements PlugIn {
 	//parameter requirement
@@ -26,7 +25,7 @@ public class Args_getter implements PlugIn {
 
 
     public String[] input_files;
-    public File[] input_files__Asfile;
+    public File[] input_files_Asfile;
 
     public String output_dir ="";
     public File output_dir_Asfile;
@@ -148,6 +147,20 @@ public class Args_getter implements PlugIn {
     	}
 
     	//set input files
+    	autoFilesSet();
+
+    }
+
+    public void setFileByIter(int i) {
+    	this.file = this.input_files[i];
+    }
+
+    public void ArgsViaGui() {
+    	run("");
+
+    }
+
+    public void autoFilesSet() {
     	if(this.process_mode == "dir") {
     		File dir = new File(this.input_dir);
     		File[] input_list = dir.listFiles();
@@ -155,18 +168,16 @@ public class Args_getter implements PlugIn {
     		if(input_list == null) {
     			IJ.log("input dir is empty.");
     		}else {
+        		this.input_files = new String[input_list.length];
+        		this.input_files_Asfile = new File[input_list.length];
     			for(int i = 0; i < input_list.length;i++) {
     				IJ.log(input_list[i].getAbsolutePath());
     				this.input_files[i] = input_list[i].getAbsolutePath();
+    				this.input_files_Asfile[i] = new File(input_list[i].getAbsolutePath());
     			}
     		}
 
     	}
-    }
-
-    public void ArgsViaGui() {
-    	run("");
-
     }
 
     public void setIntArgs(int big_sqlen, int big_divide, int additional_margin, int min_size, long allowed_pixels) {
@@ -225,5 +236,13 @@ public class Args_getter implements PlugIn {
 
     public String getMode() {
     	return this.process_mode;
+    }
+
+    public String getFile_I(int i) {
+    	return this.input_files[i];
+    }
+
+    public int getFilesLength() {
+    	return this.input_files.length;
     }
 }

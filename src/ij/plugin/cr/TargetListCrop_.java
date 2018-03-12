@@ -72,7 +72,7 @@ public class TargetListCrop_{
 
 			ImpsSave_ isv = new ImpsSave_();
 			isv.setOriginalFile(this.file);
-			isv.setOutputDir(output_dir);
+			isv.setOutputDir(this.output_dir);
 			isv.iterSave(cip.getResultImp(), i);
 
 			System.gc();

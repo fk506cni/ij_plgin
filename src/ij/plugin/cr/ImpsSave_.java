@@ -80,6 +80,10 @@ public class ImpsSave_ {
 
 	}
 
+	public String getFileTag() {
+		return this.file_tag;
+	}
+
 	public void run(String args) {
 		String file = IJ.getFilePath("this is file save class");
 		IJ.log(file);
