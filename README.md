@@ -53,6 +53,55 @@ Dir mode try process all files in the directory. If not appropriate files are in
 Be carefully about the contents of the directory.
 
 
+Args
+============
+1stCr size: x
+
+large image file are divide by many square of length x. X, 1stCR size is square length size.
+
+Bioformats take many time for large tif. Big x is not always mean to fast processing.
+
+I recommend x as multiple number of resize rate.
+
+
+
+thumnail comression rate: y
+
+Each cropped out square will resize by BILINEAR method under dicided resize rate, y.
+
+thumbnail with grayscale will go autothresholding for binarization.
+
+
+Auto thoresholding method: method for binarization. If tissue space was denied, change method as more area be chosen.
+
+See Autothresholdin documentation. https://imagej.net/Auto_Threshold
+
+
+
+Additional margin: z
+
+Combinde rectangles will be cropped out from original image with additional margin.
+
+In this phase, overlap of margin may be happlen.
+
+
+minimum image size: m
+
+if size of designed cropped out area is less than m, cropping out will be canceled.
+
+This is due to omit noise or small debris.
+
+If you want all small objects, put zero in here.
+
+
+Allowed size: n
+
+If maximum size of largest cropped out area is over than n, resize by minimum number of 2 to the n-th power.
+
+
+
+
+
 License
 ============
 
