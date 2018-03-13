@@ -107,7 +107,17 @@ Default is 2^31
 
 image saving format.
 
-Equal to SaveAs(f)
+Equal to SaveAs(f).
+
+If you use Jpeg, quality score should be specified by EDIT > OPTION > INPUT/OUTPUT.
+
+ImageJ's principle does not recommend you to use Jpeg.
+
+See document
+
+https://imagej.net/Principles
+
+
 
 
 License
