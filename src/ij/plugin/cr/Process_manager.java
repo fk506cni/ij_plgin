@@ -56,6 +56,7 @@ public class Process_manager {
 		ImpsSave_ isv = this.isv;
 		isv.setOriginalFile(file);
 		isv.setOutputDir(output_dir);
+		isv.setSaveFormat(agt.getOutFormat());
 
 		//get meta data phase
 
@@ -132,9 +133,11 @@ public class Process_manager {
 
 		//crop_out
 		TargetListCrop_ tlc = new TargetListCrop_();
-		tlc.setFile(agt.getFilePath());
-		tlc.setOutput_dir(agt.getOutDir());
-		tlc.setAllowedPixel(agt.getAllowedPx());
+		tlc.setImpsSave(isv);
+		tlc.setArgsGetter(agt);
+//		tlc.setFile(agt.getFilePath());
+//		tlc.setOutput_dir(agt.getOutDir());
+//		tlc.setAllowedPixel(agt.getAllowedPx());
 		tlc.setMaxArea(cpd.getMaxAreaSize());
 		tlc.setAreaSizes(cpd.getAreaSizes());
 		tlc.setCropDesign(cpd.getCropDesing());

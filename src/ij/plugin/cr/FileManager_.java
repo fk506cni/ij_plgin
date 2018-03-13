@@ -16,7 +16,6 @@ public class FileManager_ {
 		Args_getter agt = new Args_getter();
 		agt.ArgsViaGui();
 
-
 		Process_manager pm = new Process_manager();
 
 		if(agt.getMode()=="file") {
@@ -31,6 +30,7 @@ public class FileManager_ {
 				pm.setArgsGetter(agt);
 				pm.process_file();
 			}
+			IJ.log("dir mode loop process have done.");
 
 		}
 

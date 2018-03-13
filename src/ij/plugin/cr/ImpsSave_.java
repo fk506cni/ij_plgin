@@ -19,6 +19,10 @@ public class ImpsSave_ {
 		this.imps_list = imps_list;
 	}
 
+	public void setSaveFormat(String format) {
+		this.save_method = format;
+	}
+
 	public boolean isWin32Sys() {
 		boolean result = "\\".equals(File.separator);
 		if(result) {

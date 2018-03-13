@@ -86,6 +86,19 @@ public class Mscs_ implements PlugIn{
 		return str;
 	}
 
+	public boolean isElement(String[] set, String e) {
+		boolean[] isE = new boolean[set.length];
+		boolean result = false;
+
+		for(int i=0; i < set.length;i++) {
+			if(e.equals(set[i])) {
+				result = true;
+				}
+			}
+		return result;
+
+	}
+
 
 	public void run (String arg) {
 		IJ.log("unko_intshow");

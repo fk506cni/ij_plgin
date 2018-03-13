@@ -15,23 +15,28 @@ public class Args_getter implements PlugIn {
 	private int min_size = 1000000;
 	private long allowed_pixels = (long)Math.pow(2d, 31d);
 	private String thr_method ="Default";
-    public String title="CR entry";
-    public int width=512,height=512;
-    public String file ="";
-    public File file__Asfile;
+	private String title="CR entry";
+    private int width=512,height=512;
 
-    public String input_dir ="";
-    public File input_dir_Asfile;
+    private String out_format = "ZIP";
+
+    private String file ="";
+    private File file__Asfile;
+
+    private String input_dir ="";
+    private File input_dir_Asfile;
 
 
-    public String[] input_files;
-    public File[] input_files_Asfile;
+    private String[] input_files;
+    private File[] input_files_Asfile;
 
-    public String output_dir ="";
-    public File output_dir_Asfile;
+    private String output_dir ="";
+    private File output_dir_Asfile;
 
-    public String process_mode = "file";
-    private Mscs_ ms = new Mscs_();
+    private String process_mode = "file";
+    private ij.plugin.cr.Mscs_ ms = new ij.plugin.cr.Mscs_();
+
+    private String[] save_formats =  {"ZIP","PNG","Jpeg","Tiff","Gif"};
 
     public void run(String arg) {
       GenericDialogPlus gdp = new GenericDialogPlus("CR entry");
@@ -45,6 +50,9 @@ public class Args_getter implements PlugIn {
     		  "Mean","MinError(I)","Minimum","Moments","Otsu","Percentile","RenyiEntropy",
     		  "Shanbhag","Triangle","Yen"};
       gdp.addChoice("Athr_meth",choice , choice[0]);
+
+      gdp.addChoice("SaveAs", this.save_formats, this.save_formats[0]);
+
       gdp.addFileField("input file", "");
       gdp.addDirectoryField("input dir", "");
       gdp.addDirectoryField("output dir", "");
@@ -69,15 +77,20 @@ public class Args_getter implements PlugIn {
       this.thr_method = gdp.getNextChoice();
       IJ.log(String.valueOf(this.thr_method)+": auto thresholding method");
 
+      this.out_format = gdp.getNextChoice();
+      IJ.log(String.valueOf(this.out_format)+": output format");
+
       this.file = gdp.getNextString();
       this.file__Asfile = new File(this.file);
       IJ.log(this.file +": target file");
-      IJ.log(String.valueOf(this.file.equals("")));
+      //IJ.log(String.valueOf(this.file.equals("")));
 
       this.input_dir = gdp.getNextString();
       this.input_dir_Asfile = new File(this.input_dir);
       if(!this.input_dir.endsWith("\\") &&  "\\".equals(File.separator)) {
     	  this.input_dir = this.input_dir+"\\";
+      }else {
+    	  this.input_dir = this.input_dir+"//";
       }
       IJ.log(this.input_dir+": input directory");
 
@@ -85,6 +98,8 @@ public class Args_getter implements PlugIn {
       this.output_dir_Asfile = new File(this.output_dir);
       if(!this.output_dir.endsWith("\\") &&  "\\".equals(File.separator)) {
     	  this.output_dir = this.output_dir+"\\";
+      }else {
+    	  this.output_dir = this.output_dir+"//";
       }
       IJ.log(this.output_dir+": output directory");
 
@@ -189,7 +204,27 @@ public class Args_getter implements PlugIn {
     }
 
     public void setInOut(String file, String output_dir) {
+    	this.file = file;
+    	this.file__Asfile = new File(file);
 
+    	this.output_dir = output_dir;
+    	this.output_dir_Asfile = new File(output_dir);
+
+    }
+
+    public void setInDirOutDir(String input_dir, String output_dir) {
+    	this.input_dir = input_dir;
+    	this.input_dir_Asfile = new File(input_dir);
+
+    	this.output_dir = output_dir;
+    	this.output_dir_Asfile = new File(output_dir);
+    }
+
+    public void setOutFormat(String format) {
+    	this.out_format = format;
+    	if(ms.isElement(this.save_formats, format)) {
+    		IJ.log(format+": specified format not supported.");
+    	}
     }
 
     public int getBigSqlen() {
@@ -214,6 +249,10 @@ public class Args_getter implements PlugIn {
 
     public String getAMethod() {
     	return this.thr_method;
+    }
+
+    public String getOutFormat() {
+    	return this.out_format;
     }
 
     public String getFilePath() {

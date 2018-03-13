@@ -12,6 +12,8 @@ public class TargetListCrop_{
 	private long allowed_pixels;
 	private long max_area_size = 1L;
 	private ArrayList<ImagePlus> impS_list = new ArrayList<ImagePlus>();
+	private Args_getter agt = new Args_getter();
+	private ImpsSave_ isv = new ImpsSave_();
 
 	//xdiv is parameter for local crop out (dividing width) and rezigin paramter
 	//so it is decided by allowed pixel and max area size.
@@ -43,6 +45,15 @@ public class TargetListCrop_{
 		this.output_dir = output_dir;
 	}
 
+	public void setArgsGetter(Args_getter agt) {
+		this.agt = agt;
+		this.allowed_pixels = agt.getAllowedPx();
+	}
+
+	public void setImpsSave(ImpsSave_ isv) {
+		this.isv = isv;
+	}
+
 	public double log2(double x) {
 		return (Math.log(x)/Math.log(2d));
 	}
@@ -65,14 +76,15 @@ public class TargetListCrop_{
 	public void makeCropImps() {
 		for(int i= 0; i<crop_area.size();i++) {
 			TargetICrop_ cip = new TargetICrop_();
-			cip.setFile(this.file);
+			cip.setFile(agt.getFilePath());
 			cip.setXdiv(this.Xdiv);
 			cip.setCropAreaI(crop_area.get(i));
 			cip.makeImps2Imp();
 
-			ImpsSave_ isv = new ImpsSave_();
-			isv.setOriginalFile(this.file);
-			isv.setOutputDir(this.output_dir);
+			//ImpsSave_ isv = new ImpsSave_();
+			isv = this.isv;
+			//isv.setOriginalFile(this.file);
+			//isv.setOutputDir(this.output_dir);
 			isv.iterSave(cip.getResultImp(), i);
 
 			System.gc();

@@ -22,7 +22,7 @@ Installion
 
 put CropReader.jar in your imageJ plugin directory.
 
-It require bioformats, loci, and auto thresholding.
+It require bioformats, loci, genericDialogPlus,and auto thresholding.
 
 Simply, use fiji and put this into fiji's plugin directory.
 
@@ -72,7 +72,9 @@ Each cropped out square will resize by BILINEAR method under dicided resize rate
 thumbnail with grayscale will go autothresholding for binarization.
 
 
-# Auto thoresholding method: method for binarization. If tissue space was denied, change method as more area be chosen.
+# Auto thoresholding method: method for binarization.
+
+If tissue space was denied, change method as more area be chosen.
 
 See Autothresholdin documentation. https://imagej.net/Auto_Threshold
 
@@ -100,6 +102,12 @@ If maximum size of largest cropped out area is over than n, resize by minimum nu
 
 Default is 2^31
 
+
+# Format: f
+
+image saving format.
+
+Equal to SaveAs(f)
 
 
 License
