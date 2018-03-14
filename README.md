@@ -37,6 +37,12 @@ I recommend over 32G memory + addequate swap for a file over 2G pix.
 Be careful about imageJ with this plugin not to make your workstation unstable due to memory consumption.
 
 
+
+Be careful file, directory name, and path where your files are.
+
+Please avoid special characters.
+
+
 Process mode
 ============
 
@@ -65,12 +71,15 @@ However, Bioformats take many time for handling with large tif. Big x does not a
 
 I recommend x as multiple number of resize rate.
 
+Default is 2^10.
 
 ## thumbnail comression rate: y
 
 Each cropped out square will resize by BILINEAR method under dicided resize rate, y.
 
 thumbnail with grayscale will go autothresholding for binarization.
+
+Default is 2^5. Thumbnail size will be almost 2^(-10).
 
 ## Auto thoresholding method: method for binarization.
 
@@ -86,16 +95,20 @@ You can try all auto thresholding method by "\_gray_thumbnail" file.
 
 Binarized image is "\_thrMsk." file.
 
+Default is "Default".
+
 
 ## Additional margin: z
 
 Binarized image will go particle, rectangle analysis.
 
-After decision of rectangle for each particle, particles with overlap area is combilned.
+After decision of rectangle for each particle, rectangles with overlap area is combilned.
 
-Combinde rectangles will be cropped out from original image with additional margin, Z.
+Combinde rectangles will be cropped out from original image with additional margin, z.
 
 In this phase, overlap of margin may be happlen.
+
+Default is 2^6
 
 
 ## minimum image size: m
