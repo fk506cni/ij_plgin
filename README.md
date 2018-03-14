@@ -59,7 +59,7 @@ Args
 
 At 1st step, large image file are divide by many square of length x like a grid. X, 1stCR size is square length.
 
-Larger x links with fewer square splition. 
+Larger x links with fewer square splition.
 
 However, Bioformats take many time for handling with large tif. Big x does not always linked with fast processing.
 
@@ -87,7 +87,7 @@ You can try all auto thresholding method by "\_gray_thumbnail" file.
 Binarized image is "\_thrMsk." file.
 
 
-# Additional margin: z
+## Additional margin: z
 
 Binarized image will go particle, rectangle analysis.
 
@@ -98,7 +98,7 @@ Combinde rectangles will be cropped out from original image with additional marg
 In this phase, overlap of margin may be happlen.
 
 
-# minimum image size: m
+## minimum image size: m
 
 if size of designed cropped out area is less than m, cropping out will be canceled.
 
@@ -107,14 +107,14 @@ This is due to omit noise or small debris.
 If you want all small objects, put zero in here.
 
 
-# Allowed size: n
+## Allowed size: n
 
 If maximum size of largest cropped out area is over than n, resize by minimum number of 2 to the n-th power.
 
 Default is 2^31
 
 
-# Format: f
+## Format: f
 
 image saving format.
 
