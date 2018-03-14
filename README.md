@@ -5,9 +5,9 @@ imageJ plugin
 
 Auto cropping out image via bioformats.
 
-This enable you to cropping out image from large than 2G pixel.
+This enable you to crop out image from larger image file than 2G pixel.
 
-For example, TCGA or Genomic data commons degital slides, usually over 2G px svs formats.
+For example, TCGA or Genomic data commons digital slides, usually over 2G px svs formats.
 
 ImageJ fail to import such a large image data with "java.lang.IllegalArgumentException: Array size too large".
 
@@ -17,10 +17,10 @@ You can crop out tissue image from them by this plugin.
 
 ![resol](https://github.com/fk506cni/ij_plgin/blob/master/resol.png)
 
-Installion
+Installation
 ============
 
-put CropReader.jar in your imageJ plugin directory.
+Put CropReader.jar in your imageJ plugin directory.
 
 It require bioformats, loci, genericDialogPlus,and auto thresholding.
 
@@ -30,11 +30,11 @@ Simply, use fiji and put this into fiji's plugin directory.
 Caution
 ============
 
-This require larger memory against large image.
+This require larger memory against larger image.
 
-I recommend over 16G memory for a file over 2G pix.
+I recommend over 32G memory + addequate swap for a file over 2G pix.
 
-Be carefully about imageJ with this plugin making your workstation unstable.
+Be careful about imageJ with this plugin not to make your workstation unstable due to memory consumption.
 
 
 Process mode
@@ -48,41 +48,52 @@ If both file and dir was given, this process process the file, not the directory
 
 If you want to process all files in an directory, leave "input file" empty.
 
-Dir mode try process all files in the directory. If not appropriate files are in the directory, Error will happen.
+Dir mode try to process all files in the directory. If not appropriate files are in the directory, Error will happen.
 
-Be carefully about the contents of the directory.
+Be careful about the contents of the directory and permission.
 
 
 Args
 ============
-# 1stCr size: x
+## 1stCr size: x
 
-large image file are divide by many square of length x. X, 1stCR size is square length size.
+At 1st step, large image file are divide by many square of length x like a grid. X, 1stCR size is square length.
 
-Bioformats take many time for large tif. Big x is not always mean to fast processing.
+Larger x links with fewer square splition. 
+
+However, Bioformats take many time for handling with large tif. Big x does not always linked with fast processing.
 
 I recommend x as multiple number of resize rate.
 
 
-
-# thumnail comression rate: y
+## thumbnail comression rate: y
 
 Each cropped out square will resize by BILINEAR method under dicided resize rate, y.
 
 thumbnail with grayscale will go autothresholding for binarization.
 
+## Auto thoresholding method: method for binarization.
 
-# Auto thoresholding method: method for binarization.
+This plugin designs area to crop out with binarized thumbnail.
 
-If tissue space was denied, change method as more area be chosen.
+You should choice proper method as tissue you want chosen.
+
+If tissue space was not selected, change method as more area be chosen.
 
 See Autothresholdin documentation. https://imagej.net/Auto_Threshold
 
+You can try all auto thresholding method by "\_gray_thumbnail" file.
+
+Binarized image is "\_thrMsk." file.
 
 
 # Additional margin: z
 
-Combinde rectangles will be cropped out from original image with additional margin.
+Binarized image will go particle, rectangle analysis.
+
+After decision of rectangle for each particle, particles with overlap area is combilned.
+
+Combinde rectangles will be cropped out from original image with additional margin, Z.
 
 In this phase, overlap of margin may be happlen.
 
@@ -136,3 +147,9 @@ Written by
 fk506cni == unkodaisuki!
 
 since 2018.1
+
+
+Citation
+============
+
+Under construction
